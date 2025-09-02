@@ -12,7 +12,7 @@
 // Settings (define before here, if you want)
 
 // Set site identities
-$_IMAGE['skin']['favicon']  = ''; // Sample: 'image/favicon.ico';
+$_IMAGE['skin']['favicon']  = 'image/favicon.ico'; // Sample: 'image/favicon.ico';
 
 // Select theme
 if (! defined('TDIARY_THEME'))
@@ -894,11 +894,12 @@ function _toolbar($key, $x = 20, $y = 20){
 <?php } // PKWK_SKIN_SHOW_TOOLBAR ?>
 
 <!-- Copyright etc -->
- Site admin: <a href="<?php echo $modifierlink ?>"><?php echo $modifier ?></a>
+<!-- Site admin: <a href="<?php echo $modifierlink ?>"><?php echo $modifier ?></a> -->
  <p>
- <?php echo S_COPYRIGHT ?>.
+<!-- <?php echo S_COPYRIGHT ?>.
  Powered by PHP <?php echo PHP_VERSION ?><br />
  HTML convert time: <?php echo elapsedtime() ?> sec.
+-->
  </p>
 </div><!-- class="footer" -->
 
