@@ -1,0 +1,22 @@
+''設定ファイル''~
+COLOR(blue):・default.ini.php~
+　基本的な設定、ユーザ定義ルールなど~
+COLOR(blue):・pukiwiki.ini.php~
+　PukiWiki に関する設定~
+COLOR(blue):・sitedev.ini.php~
+　siteDev に関する設定~
+COLOR(blue):・rules.ini.php~
+　ユーザ定義ルールの設定~
+
+''必要最低限の設定''~
+COLOR(blue):・pukiwiki.ini.php~
+　$adminpass = md5("phpspot");~
+　行の md5( ) で囲まれた中に管理者パスワードを設定してください。~
+COLOR(blue):・sitedev.ini.php~
+　認証するユーザを設定します。~
+　$sd_authuser = array(~
+　　"''ユーザ1''"=>"''ユーザ1のパス''",~
+　　"''ユーザ2''"=>"''ユーザ2のパス''"~
+　);~
+　のように設定します。~
+　例にならってユーザ3,ユーザ4 と追加できます。~

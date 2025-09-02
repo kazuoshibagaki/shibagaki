@@ -1,0 +1,18 @@
+Title: 日本ちゃちゃちゃ
+Author: ただただし
+Access: sho@spc.gr.jp
+License: GPL
+Comment: 終わっちゃったので公開
+
+Copyright 2002 (C) by TADA Tadashi <sho@spc.gr.jp>
+Validated by W3C.
+
+ChangeLog
+2003-09-10 NT <nt@be.to>
+	* remove specification of font-family.
+
+2002-10-21 zoe <zoe@kasumi.sakura.ne.jp>
+	* convert for 1.5 series.
+
+2002-06-06 TADA Tadashi <sho@spc.gr.jp>
+	* created.

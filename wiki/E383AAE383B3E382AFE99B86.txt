@@ -1,0 +1,8 @@
+***リンク集 [#u8bcfde0]
+
+以下に簡単に追加してゆくことができます。
+
+----
+-[[PukiWiki:http://pukiwiki.org/]]
+-[[phpspot:http://fol.axisz.jp/php/]]
+-

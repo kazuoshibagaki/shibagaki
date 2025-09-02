@@ -1,0 +1,11 @@
+ファイル名変更
+index.php -> index_orig.php
+
+ファイル追加
+index.php
+admin.php
+
+変更するファイル
+pukiwiki.ini.php
+default.ini.php
+skin/tdiary.skin.php -- footer消去

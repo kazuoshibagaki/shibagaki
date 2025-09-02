@@ -1,0 +1,15 @@
+-#author("2025-07-19T04:18:00+00:00","default:ono","ono")
++#author("2025-07-19T04:18:10+00:00","default:ono","ono")
+ #ref(MENU/shibagaki.jpg,left,nolink,Kazuo Shibagaki)~
+ #br
+ #br
+ #br
+ -[[トップページ]]~
+ -[[生い立ちと履歴]]~
+ -[[研究業績>研究業績とその他の著作]]~
+ -[[武蔵大学：専門ゼミナール]]~
+ - [[武蔵大学最終講義]]
+-- [[業績]]
+ - [[業績一覧]]
+ 
+ //電子メール：&htmlinsert(mailto.html);
