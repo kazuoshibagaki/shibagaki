@@ -2,7 +2,7 @@
 // PukiWiki - Yet another WikiWikiWeb clone.
 // func.php
 // Copyright
-//   2002-2021 PukiWiki Development Team
+//   2002-2022 PukiWiki Development Team
 //   2001-2002 Originally written by yu-ji
 // License: GPL v2 or (at your option) any later version
 //
@@ -15,6 +15,11 @@ define('PKWK_URI_RELATIVE', 0);
 define('PKWK_URI_ROOT', 1);
 /** Absolute URI. */
 define('PKWK_URI_ABSOLUTE', 2);
+
+/** New page name - its length is need to be within the soft limit. */
+define('PKWK_PAGENAME_BYTES_SOFT_LIMIT', 115);
+/** Page name - its length is need to be within the hard limit. */
+define('PKWK_PAGENAME_BYTES_HARD_LIMIT', 125);
 
 function pkwk_log($message)
 {
@@ -142,6 +147,32 @@ function is_page($page, $clearcache = FALSE)
 {
 	if ($clearcache) clearstatcache();
 	return file_exists(get_filename($page));
+}
+
+function is_pagename_bytes_within_soft_limit($page)
+{
+	return strlen($page) <= PKWK_PAGENAME_BYTES_SOFT_LIMIT;
+}
+
+function is_pagename_bytes_within_hard_limit($page)
+{
+	return strlen($page) <= PKWK_PAGENAME_BYTES_SOFT_LIMIT;
+}
+
+function page_exists_in_history($page)
+{
+	if (is_page($page)) {
+		return true;
+	}
+	$diff_file = DIFF_DIR . encode($page) . '.txt';
+	if (file_exists($diff_file)) {
+		return true;
+	}
+	$backup_file = BACKUP_DIR . encode($page) . BACKUP_EXT;
+	if (file_exists($backup_file)) {
+		return true;
+	}
+	return false;
 }
 
 function is_editable($page)
@@ -873,7 +904,10 @@ function get_base_uri($uri_type = PKWK_URI_RELATIVE)
  */
 function get_page_uri($page, $uri_type = PKWK_URI_RELATIVE)
 {
-	global $page_uri_handler;
+	global $page_uri_handler, $defaultpage;
+	if ($page === $defaultpage) {
+		return get_base_uri($uri_type);
+	}
 	return get_base_uri($uri_type) . $page_uri_handler->get_page_uri_virtual_query($page);
 }
 
@@ -1205,8 +1239,8 @@ class PukiWikiStandardPageURIHandler {
 			return null; // default page
 		}
 		if (strpos($param1st, '=') !== FALSE) {
-			// Found '/?key=value' (NG chars)
-			return FALSE; // Error page
+			// Found '/?key=value' (Top page with additional query params)
+			return null; // default page
 		}
 		$page = urldecode($param1st);
 		$page2 = input_filter($page);

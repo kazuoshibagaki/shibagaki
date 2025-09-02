@@ -2,7 +2,7 @@
 // PukiWiki - Yet another WikiWikiWeb clone.
 // default.ini.php
 // Copyright
-//   2003-2018 PukiWiki Development Team
+//   2003-2022 PukiWiki Development Team
 //   2001-2002 Originally written by yu-ji
 // License: GPL v2 or (at your option) any later version
 //
@@ -55,11 +55,11 @@ $top = $_msg_content_back_to_top;
 
 /////////////////////////////////////////////////
 // 添付ファイルの一覧を常に表示する (負担がかかります)
-$attach_link = 0;
+$attach_link = 1;
 
 /////////////////////////////////////////////////
 // 関連するページのリンク一覧を常に表示する(負担がかかります)
-$related_link = 0;
+$related_link = 1;
 
 // リンク一覧の区切り文字
 $related_str = "\n ";
@@ -111,10 +111,13 @@ $usefacemark = 1;
 /////////////////////////////////////////////////
 // ユーザ定義ルール(コンバート時に置換)
 $line_rules = array(
-	'COLOR\(([^\(\)]*)\){([^}]*)}'	=> '<span style="color:$1">$2</span>',
-	'SIZE\(([^\(\)]*)\){([^}]*)}'	=> '<span style="font-size:$1px">$2</span>',
-	'COLOR\(([^\(\)]*)\):((?:(?!COLOR\([^\)]+\)\:).)*)'	=> '<span style="color:$1">$2</span>',
-	'SIZE\(([^\(\)]*)\):((?:(?!SIZE\([^\)]+\)\:).)*)'	=> '<span class="size$1">$2</span>',
+	'COLOR\(((?:[a-zA-Z]{1,20})|(?:#[0-9a-fA-F]{3,6}))\){([^}]*)}'
+		=> '<span style="color:$1">$2</span>',
+	'SIZE\((\d{1,2})\){([^}]*)}' => '<span style="font-size:$1px">$2</span>',
+	'COLOR\(((?:[a-zA-Z]{1,20})|(?:#[0-9a-fA-F]{3,6}))\):((?:(?!COLOR\([^\)]+\)\:).)*)'
+		=> '<span style="color:$1">$2</span>',
+	// "SIZE(n):" PukiWiki 1.3 compatible notation
+	'SIZE\(([1-7])\):((?:(?!SIZE\([^\)]+\)\:).)*)' => '<span class="size$1">$2</span>',
 	'%%%(?!%)((?:(?!%%%).)*)%%%'	=> '<ins>$1</ins>',
 	'%%(?!%)((?:(?!%%).)*)%%'	=> '<del>$1</del>',
 	"'''(?!')((?:(?!''').)*)'''"	=> '<em>$1</em>',

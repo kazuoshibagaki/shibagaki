@@ -2,7 +2,7 @@
 // PukiWiki - Yet another WikiWikiWeb clone
 // pukiwiki.ini.php
 // Copyright
-//   2002-2020 PukiWiki Development Team
+//   2002-2022 PukiWiki Development Team
 //   2001-2002 Originally written by yu-ji
 // License: GPL v2 or (at your option) any later version
 //
@@ -39,7 +39,7 @@ if (! defined('PKWK_DISABLE_INLINE_IMAGE_FROM_URI'))
 // PKWK_QUERY_STRING_MAX
 //   Max length of GET method, prohibits some worm attack ASAP
 //   NOTE: Keep (page-name + attach-file-name) <= PKWK_QUERY_STRING_MAX
-define('PKWK_QUERY_STRING_MAX', 640); // Bytes, 0 = OFF
+define('PKWK_QUERY_STRING_MAX', 2000); // Bytes, 0 = OFF
 
 /////////////////////////////////////////////////
 // Experimental features
@@ -110,7 +110,7 @@ default  :
 /////////////////////////////////////////////////
 // Title of your Wikisite (Name this)
 // Also used as RSS feed's channel name etc
-$page_title = 'Kazuo Shibagaki';
+$page_title = 'PukiWiki';
 
 // Specify PukiWiki URL (default: auto)
 //$script = 'http://example.com/pukiwiki/';
@@ -119,19 +119,18 @@ $page_title = 'Kazuo Shibagaki';
 //$script_directory_index = 'index.php';
 
 // Site admin's name (CHANGE THIS)
-$modifier = 'shibagaki';
+$modifier = 'anonymous';
 
 // Site admin's Web page (CHANGE THIS)
-// $modifierlink = 'https://shibagaki.taiwa.tokyo/';
-$modifierlink = '';
+$modifierlink = 'http://pukiwiki.example.com/';
 
 // Default page name
-$defaultpage  = 'トップページ';     // Top / Default page
+$defaultpage  = 'FrontPage';     // Top / Default page
 $whatsnew     = 'RecentChanges'; // Modified page list
 $whatsdeleted = 'RecentDeleted'; // Removeed page list
 $interwiki    = 'InterWikiName'; // Set InterWiki definition here
 $aliaspage    = 'AutoAliasName'; // Set AutoAlias definition here
-$menubar      = 'MENU';       // Menu
+$menubar      = 'MenuBar';       // Menu
 $rightbar_name = 'RightBar';     // RightBar
 
 /////////////////////////////////////////////////
@@ -190,7 +189,7 @@ $notimeupdate = 1;
 // Admin password for this Wikisite
 
 // Default: always fail
-$adminpass = '3624';
+$adminpass = '{x-php-md5}!';
 
 // Sample:
 //$adminpass = 'pass'; // Cleartext
@@ -218,11 +217,11 @@ $pagereading_kanji2kana_encoding = 'EUC'; // Default for Unix
 //$pagereading_kanji2kana_encoding = 'SJIS'; // Default for Windows
 
 // Absolute path of the converter (ChaSen)
-$pagereading_chasen_path = '/usr/bin/chasen';
+$pagereading_chasen_path = '/usr/local/bin/chasen';
 //$pagereading_chasen_path = 'c:\progra~1\chasen21\chasen.exe';
 
 // Absolute path of the converter (KAKASI)
-$pagereading_kakasi_path = '/usr/bin/kakasi';
+$pagereading_kakasi_path = '/usr/local/bin/kakasi';
 //$pagereading_kakasi_path = 'c:\kakasi\bin\kakasi.exe';
 
 // Page name contains pronounce data (written by the converter)
@@ -258,15 +257,15 @@ $auth_provider_user_prefix_saml = 'saml:';
 // User definition
 $auth_users = array(
 	// Username => password
-	'shibagaki'	=> '3624', // Cleartext
-	'ono'	=> 'musashi', // PHP md5() 'bar_passwd'
+	'foo'	=> 'foo_passwd', // Cleartext
+	'bar'	=> '{x-php-md5}f53ae779077e987718cc285b14dfbe86', // PHP md5() 'bar_passwd'
 	'hoge'	=> '{SMD5}OzJo/boHwM4q5R+g7LCOx2xGMkFKRVEx',      // LDAP SMD5 'hoge_passwd'
 );
 
 // Group definition
 $auth_groups = array(
 	// Groupname => group members(users)
-	'valid-user' => 'shibagaki,ono', // Reserved 'valid-user' group contains all authenticated users
+	'valid-user' => '', // Reserved 'valid-user' group contains all authenticated users
 	'groupfoobar'	=> 'foo,bar',
 );
 
@@ -289,11 +288,13 @@ $read_auth_pages = array(
 
 /////////////////////////////////////////////////
 // Edit auth (0:Disable, 1:Enable)
-$edit_auth = 1;
+$edit_auth = 0;
 
 $edit_auth_pages = array(
 	// Regex		   Username
-	 '##'       => 'ono,shibagaki',
+	'#BarDiary#'		=> 'bar',
+	'#HogeHoge#'		=> 'hoge',
+	'#(NETABARE|NetaBare)#'	=> 'foo,bar,hoge',
 );
 
 /////////////////////////////////////////////////
@@ -304,6 +305,8 @@ $search_auth = 0;
 
 /////////////////////////////////////////////////
 // AutoTicketLink
+// (0:Create AutoTicketLinkName page automatically, 1:Don't create the page)
+$no_autoticketlinkname = 0;
 $ticket_link_sites = array(
 /*
 	array(
@@ -540,6 +543,11 @@ $usedatetime = 1;
 // Logging updates (0 or 1)
 $logging_updates = 0;
 $logging_updates_log_dir = '/var/log/pukiwiki';
+
+/////////////////////////////////////////////////
+// Page-URI mapping handler ( See https://pukiwiki.osdn.jp/?PukiWiki/PageURI )
+$page_uri_handler = null; // default
+// $page_uri_handler = new PukiWikiStandardPageURIHandler();
 
 /////////////////////////////////////////////////
 // User-Agent settings

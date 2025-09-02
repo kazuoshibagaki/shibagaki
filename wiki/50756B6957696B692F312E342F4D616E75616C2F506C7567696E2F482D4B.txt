@@ -1,6 +1,7 @@
 #freeze
 #nofollow
 #norelated
+#setlinebreak(off)
 #navi(../)
 #contents
 ------------------------------
@@ -29,26 +30,35 @@
 ~★☆☆☆☆
 :書式|
 ''#img(''
-&color(blue){画像URL};[,
+&color(blue){画像URL};|
+&color(blue){添付ファイル名};[,
 &color(blue){right};|
 &color(blue){r};|
 &color(blue){left};|
 &color(blue){l};|
 &color(blue){clear};|
-&color(blue){c};,[
-&color(blue){clear};|
 &color(blue){c};
-]]
+{,
+[&color(blue){999x999};],
+[&color(blue){999x};],
+[&color(blue){x999};],
+[&color(blue){999w};],
+[&color(blue){999h};],
+[&color(blue){999%};]}
 '')''
 :概要|
-~添付ファイル以外の画像を表示するために開発されましたが、該当機能がrefプラグインに統合されたため、基本的に使用することはありません。過去との互換性のために残っています。
+~指定されたURLまたは添付ファイルの画像を表示します。
+refプラグインと異なり、拡張子(末尾文字列)に関わらずURLを画像として扱います。
 :引数|
 ~画像URLには表示する画像のURLを指定します。
-画像にはjpeg(jpg), gif, png のみ指定可能です。
-~right,r,left,l,clear,c で画像の表示位置とテキストの回りこみを指定します。省略時は left が指定されたとみなします。
---right,r − 画像を右寄せで表示します。
---left,l − 画像を右寄せで表示します。
---clear,c − テキストの回りこみを解除します。内部的には right,r,left,l 以外は全てclearが選択されたと見なされます。
+~ページに添付したファイル名を指定することも可能です。
+~パラメータには画像の表示位置とテキストの回りこみを指定します。省略時は left が指定されたとみなします。
+--right,r － 画像を右寄せで表示します。
+--left,l － 画像を右寄せで表示します。
+--clear,c － テキストの回りこみを解除します。内部的には right,r,left,l 以外は全てclearが選択されたと見なされます。
+--999x999 － サイズを指定します(幅x高さ)。省略時は拡大率あるいは対象画像のサイズに従います。
+--999x or 999w － 画像幅を指定します。元画像のアスペクト比を保って高さは自動設定されます。
+--x999 or 999h － 画像高さを指定します。元画像のアスペクト比を保って幅は自動設定されます。
 :プラグイン内設定|~
 --PLUGIN_IMG_CLEAR　clear指定時に出力するタグ
 --PLUGIN_IMG_USAGE　引数未指定時に表示されるヘルプ
@@ -121,3 +131,4 @@
 
 
 #navi(../)
+#setlinebreak(default)
